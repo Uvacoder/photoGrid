@@ -1,15 +1,44 @@
 <template>
-  <div>
-    
-  </div>
+  <b-container fluid>
+    <b-row> </b-row>
+  </b-container>
 </template>
 
 <script>
+// Imports
+import axios from "axios";
+
 export default {
   name: 'PhotoGrid',
   props: {
     msg: String
-  }
+  },
+  data(){
+    return{
+      apiElements:[],
+    }
+  },
+  methods: {
+    getImages(){
+      const APIURL='https://jsonplaceholder.typicode.com/photos'
+      axios.get(APIURL)
+      .then(res => {
+        console.log(res)
+        this.apiElements=res
+      })
+      .catch(err => {
+        console.error(err);
+      })
+    },
+  },
+
+  // -----Life cycle things------
+  created(){
+
+    this.getImages();
+    
+  },
+  // -----END Life cycle things------
 }
 </script>
 

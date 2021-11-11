@@ -1,5 +1,5 @@
 <template>
-  <div class="h-100" id="app">
+  <div id="app">
     <Header/>
 
     <PhotoGrid/>
@@ -13,8 +13,8 @@ import Header from './components/Header.vue'
 export default {
   name: 'App',
   components: {
-    PhotoGrid,
     Header,
+    PhotoGrid,
   }
 }
 </script>
@@ -26,6 +26,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
