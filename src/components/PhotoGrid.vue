@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid>
+  <b-container class="containerEdit" fluid>
     <b-row
       cols="1"
       cols-sm="2"
@@ -9,26 +9,12 @@
       align-v="center"
       align-h="center"
     >
-      <b-jumbotron
+      <Item-grid
         v-for="item in showElements"
+        :dataItem="item"
         :key="item.id"
-        class="m-2"
-        border-variant="grey"
-        fluid
-      >
-        <b-col>
-          <b-row>
-            <b-col>
-              <div class="h6">{{ item.title }}</div>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <b-img :src="item.thumbnailUrl"></b-img>
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-jumbotron>
+        @delete="onDeleteItem"
+      />
     </b-row>
   </b-container>
 </template>
@@ -36,12 +22,13 @@
 <script>
 // Imports
 import axios from "axios";
-// import { Row, Column } from 'vue-grid-responsive';
+import ItemGrid from "./ItemGrid.vue";
+import "animate.css";
 
 export default {
   name: "PhotoGrid",
-  props: {
-    msg: String,
+  components: {
+    ItemGrid,
   },
   data() {
     return {
@@ -72,18 +59,20 @@ export default {
         let bottomOfWindow =
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
-
         if (bottomOfWindow) {
-          this.albumSelected++;
+          if (this.albumSelected < 100) {
+            this.albumSelected++;
+          }
           this.apiElements.filter((item) => {
             if (item.albumId == this.albumSelected) {
               this.showElements.push(item);
             }
           });
-          console.log(this.albumSelected);
-            
         }
       };
+    },
+    onDeleteItem(id) {
+      this.showElements = this.showElements.filter((ele) => ele.id != id);
     },
   },
 
@@ -94,7 +83,6 @@ export default {
   },
   mounted() {
     this.getNextAlbum();
-    console.log("this.showElements------", this.showElements);
   },
   // -----END Life cycle things------
 };
@@ -115,5 +103,9 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.containerEdit {
+  background-color: #8a89892d;
 }
 </style>
