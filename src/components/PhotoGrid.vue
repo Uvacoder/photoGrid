@@ -2,7 +2,7 @@
   <b-container class="containerEdit" fluid>
     <b-row
       cols="1"
-      cols-sm="2"
+      cols-sm="3"
       cols-md="4"
       cols-lg="6"
       cols-xl="8"
